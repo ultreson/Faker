@@ -28,28 +28,34 @@ class Image extends Base
      *
      * @return string
      */
-    public static function imageUrl($width = 640, $height = 480, $category = null, $randomize = true, $word = null, $gray = false)
+    public static function imageUrl($width = 640, $height = 480, $category = null, $randomize = true, $word = null, $gray = false, $alternative = null)
     {
-        $baseUrl = "https://lorempixel.com/";
-        $url = "{$width}/{$height}/";
-
-        if ($gray) {
-            $url = "gray/" . $url;
-        }
-
-        if ($category) {
-            if (!in_array($category, static::$categories)) {
-                throw new \InvalidArgumentException(sprintf('Unknown image category "%s"', $category));
+        $url = '';
+        if ($alternative == null) {
+            $baseUrl = "https://lorempixel.com/";
+            if ($gray) {
+                $url = "gray/" . $url;
             }
-            $url .= "{$category}/";
-            if ($word) {
-                $url .= "{$word}/";
-            }
-        }
 
-        if ($randomize) {
-            $url .= '?' . static::randomNumber(5, true);
-        }
+            if ($category) {
+                if (!in_array($category, static::$categories)) {
+                    throw new \InvalidArgumentException(sprintf('Unknown image category "%s"', $category));
+                }
+                $url .= "{$category}/";
+                if ($word) {
+                    $url .= "{$word}/";
+                }
+            }
+
+            if ($randomize) {
+                $url .= '?' . static::randomNumber(5, true);
+            }
+        } else
+            $baseUrl = $alternative;
+
+        $url = "{$width}/{$height}/" . $url;
+
+
 
         return $baseUrl . $url;
     }
@@ -77,22 +83,42 @@ class Image extends Base
 
         $url = static::imageUrl($width, $height, $category, $randomize, $word);
 
+        $fp = fopen($filepath, 'w');
+         
+         //alternatives to lorem îxel if it fails
+         $alternatives = [
+            'http://www.placecage.com/c/',
+            'https://lorempixel.com/',
+            'https://pixelipsum.com/',
+            'https://placebear.com/'
+        ];
+         
         // save file
         if (function_exists('curl_exec')) {
-            // use cURL
-            $fp = fopen($filepath, 'w');
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_FILE, $fp);
-            $success = curl_exec($ch) && curl_getinfo($ch, CURLINFO_HTTP_CODE) === 200;
+            do {
+                // use cURL
+                echo 'looped' . "\r\n";
+                $success = false;
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_FILE, $fp);
+                $success = curl_exec($ch) && curl_getinfo($ch, CURLINFO_HTTP_CODE) === 200;
+                if (!$success) {
+                    try {
+                        unlink($filepath);
+                        echo 'unlinked' . "\r\n";
+                    } catch (\Exception $exception) {
+                        echo 'exception' . "\r\n";
+                    }
+
+
+                }  
+                curl_close($ch);
+                // gets an image from a random alternative filler image provider
+                $url = static::imageUrl($width, $height, $category, $randomize, $word, false, $alternatives[rand(0,count($alternatives)-1)]);
+            } while (!$success);
             fclose($fp);
-            curl_close($ch);
 
-            if (!$success) {
-                unlink($filepath);
 
-                // could not contact the distant URL or HTTP error - fail silently.
-                return false;
-            }
         } elseif (ini_get('allow_url_fopen')) {
             // use remote fopen() via copy()
             $success = copy($url, $filepath);
