@@ -85,7 +85,7 @@ class Image extends Base
 
         $fp = fopen($filepath, 'w');
          
-         //alternatives to lorem îxel if it fails
+         //alternatives to lorem pixel if it fails
          $alternatives = [
             'http://www.placecage.com/c/',
             'https://lorempixel.com/',
