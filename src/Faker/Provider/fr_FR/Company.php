@@ -16,16 +16,15 @@ class Company extends \Faker\Provider\Company
         '{{lastName}}',
     );
 
-    
     protected static $bsWords = array(
         array(
             'implémente', 'utilise', 'intègre', 'optimise', 'évolue', 'transforme', 'permet', 'orchestre', 'visionnaire', 'monétise', 'facilite', 'synergise', 'stratégise', 'déploie', 'synthésise', 'livre', 'maximise', 'visualise', 'innove', 'libère', 'révolutionne', 'génère', 'exploite', 'transitionne', 'itère', 'cultive', 'redéfini', 'recontextualise'
         ),
         array(
-            'synergise', 'paradigmes', 'marchés', 'partenariat', 'infrastructures', 'platformes', 'initiatives', 'yeux', 'communautées', 'ROI', 'solutions', 'services électroniques', 'portails', 'niches', 'technologies', 'contenu', 'chaine d\'approvisionnement', 'convergence', 'relations', 'architectures', 'interfaces', 'marchés électroniques', 'commerce en ligne', 'systèmes', 'bande passante', 'modèles', 'livrables', 'utilisateurs', 'schémas', 'réseaux', 'applications', 'facteurs', 'fonctionnalités', 'expériences', 'services en ligne', 'méthodologies'
+            'et synergise', 'paradigmes', 'des marchés', 'un partenariat', 'des infrastructures', 'des platformes', 'des initiatives', 'des yeux', 'des communautées', 'ROI', 'des solutions', 'des services électroniques', 'des portails', 'des niches', 'des technologies', 'du contenu', 'une chaine d\'approvisionnement', 'une convergence', 'des relations', 'des architectures', 'des interfaces', 'des marchés électroniques', 'du commerce en ligne', 'des systèmes', 'de la bande passante', 'des modèles', 'des livrables', 'des utilisateurs', 'des schémas', 'des réseaux', 'des applications', 'des facteurs', 'des fonctionnalitées', 'des expériences', 'des services en ligne', 'des méthodologies'
         ),
         array(
-            'valeur ajoutée', 'vertical', 'proactif', 'robuste', 'révolutionnaire', 'à la pointe', 'innovateur', 'intuitif', 'stratégique', '24/7', 'global', 'granulaire', 'sans friction', 'virtuel', 'viral', 'dynamique', '24/365', 'tueur', 'magnétique', 'interactif', 'point-com', 'séduisant', 'back-end', 'temps réel', 'efficace', 'front-end', 'distribué', 'extensible', 'clé en main', 'mondial', 'ouvert', 'multi-platforme', 'synergique', 'entreprise', 'intégré', 'marquant', 'sans-fil', 'transparent', 'prochaine génération', 'visionnaire', 'personnalisé', 'collaboratif', 'attrayant'
+            'avec valeur ajoutée', 'vertical', 'proactif', 'robuste', 'révolutionnaire', 'à la pointe', 'innovateur', 'intuitif', 'stratégique', '24/7', 'global', 'granulaire', 'sans friction', 'virtuel', 'viral', 'dynamique', '24/365', 'tueur', 'magnétique', 'interactif', 'point-com', 'séduisant', 'back-end', 'temps réel', 'efficace', 'front-end', 'distribué', 'extensible', 'clé en main', 'mondial', 'ouvert', 'multi-platforme', 'synergique', 'entreprise', 'intégré', 'marquant', 'sans-fil', 'transparent', 'prochaine génération', 'visionnaire', 'personnalisé', 'collaboratif', 'attrayant'
         ),
     );
     
