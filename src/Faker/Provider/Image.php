@@ -28,28 +28,34 @@ class Image extends Base
      *
      * @return string
      */
-    public static function imageUrl($width = 640, $height = 480, $category = null, $randomize = true, $word = null, $gray = false)
+    public static function imageUrl($width = 640, $height = 480, $category = null, $randomize = true, $word = null, $gray = false, $alternative = null, $alternativeSuffix = [''])
     {
-        $baseUrl = "https://lorempixel.com/";
-        $url = "{$width}/{$height}/";
+        $url = '';
+        if ($alternative == null) {
+            $baseUrl = "https://lorempixel.com/";
 
-        if ($gray) {
-            $url = "gray/" . $url;
-        }
+            if ($gray)
+                $url = "gray/" . $url;
 
-        if ($category) {
-            if (!in_array($category, static::$categories)) {
-                throw new \InvalidArgumentException(sprintf('Unknown image category "%s"', $category));
+            if ($category) {
+                if (!in_array($category, static::$categories))
+                    throw new \InvalidArgumentException(sprintf('Unknown image category "%s"', $category));
+                $url .= "{$category}/";
+                if ($word)
+                    $url .= "{$word}/";
             }
-            $url .= "{$category}/";
-            if ($word) {
-                $url .= "{$word}/";
-            }
+
+            if ($randomize)
+                $url .= '?' . static::randomNumber(5, true);
+
+        } else {
+            $baseUrl = $alternative;
+            if ($alternativeSuffix != null)
+                foreach ($alternativeSuffix as $suffix)
+                    $url = $url . $suffix . '/';
         }
 
-        if ($randomize) {
-            $url .= '?' . static::randomNumber(5, true);
-        }
+        $url = "{$width}/{$height}/" . $url;
 
         return $baseUrl . $url;
     }
