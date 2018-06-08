@@ -16,6 +16,19 @@ class Company extends \Faker\Provider\Company
         '{{lastName}}',
     );
 
+    
+    protected static $bsWords = array(
+        array(
+            'implémente', 'utilise', 'intègre', 'optimise', 'évolue', 'transforme', 'permet', 'orchestre', 'visionnaire', 'monétise', 'facilite', 'synergise', 'stratégise', 'déploie', 'synthésise', 'livre', 'maximise', 'visualise', 'innove', 'libère', 'révolutionne', 'génère', 'exploite', 'transitionne', 'itère', 'cultive', 'redéfini', 'recontextualise'
+        ),
+        array(
+            'synergise', 'paradigmes', 'marchés', 'partenariat', 'infrastructures', 'platformes', 'initiatives', 'yeux', 'communautées', 'ROI', 'solutions', 'services électroniques', 'portails', 'niches', 'technologies', 'contenu', 'chaine d\'approvisionnement', 'convergence', 'relations', 'architectures', 'interfaces', 'marchés électroniques', 'commerce en ligne', 'systèmes', 'bande passante', 'modèles', 'livrables', 'utilisateurs', 'schémas', 'réseaux', 'applications', 'facteurs', 'fonctionnalités', 'expériences', 'services en ligne', 'méthodologies'
+        ),
+        array(
+            'valeur ajoutée', 'vertical', 'proactif', 'robuste', 'révolutionnaire', 'à la pointe', 'innovateur', 'intuitif', 'stratégique', '24/7', 'global', 'granulaire', 'sans friction', 'virtuel', 'viral', 'dynamique', '24/365', 'tueur', 'magnétique', 'interactif', 'point-com', 'séduisant', 'back-end', 'temps réel', 'efficace', 'front-end', 'distribué', 'extensible', 'clé en main', 'mondial', 'ouvert', 'multi-platforme', 'synergique', 'entreprise', 'intégré', 'marquant', 'sans-fil', 'transparent', 'prochaine génération', 'visionnaire', 'personnalisé', 'collaboratif', 'attrayant'
+        ),
+    );
+    
     /**
      * @var array French catch phrase formats.
      */
@@ -102,6 +115,18 @@ class Company extends \Faker\Provider\Company
         } while (true);
 
         return $catchPhrase;
+    }
+    
+    /**
+     * 
+     */
+    public function bs()
+    {
+        $result = array();
+        foreach (static::$bsWords as &$word) {
+            $result[] = static::randomElement($word);
+        }
+        return join($result, ' ');
     }
 
     /**
